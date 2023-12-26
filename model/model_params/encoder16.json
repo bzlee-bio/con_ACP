@@ -1,0 +1,1 @@
+{"emb_dim": 64, "d_ff": 512, "model": "encoder", "h": 4, "n_encoder": 4}

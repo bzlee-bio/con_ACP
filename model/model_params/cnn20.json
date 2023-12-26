@@ -1,0 +1,1 @@
+{"model": "cnn1d", "emb_dim": 64, "num_layer": 2, "channels": [128, 256, 512]}

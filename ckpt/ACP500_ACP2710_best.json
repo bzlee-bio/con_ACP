@@ -1,0 +1,28 @@
+{
+    "model": "cnn1d",
+    "emb_dim": 64,
+    "num_layer": 3,
+    "channels": [
+        32,
+        64,
+        128
+    ],
+    "model_info": "./model/model_params/cnn6.json",
+    "batch_size": 128,
+    "dropout_rate": 0.1,
+    "gpu": 0,
+    "id": 0,
+    "lr": 0.001,
+    "epoch": 300,
+    "scheduler": false,
+    "dataset": "ACP500_ACP2710",
+    "val_fold": 0,
+    "load_weight": false,
+    "pretrained_epoch": null,
+    "temp": 1.0,
+    "AA_tok_len": 1,
+    "alpha": 0.9,
+    "beta": 0.5,
+    "seed": 4218,
+    "contrastive": true
+}

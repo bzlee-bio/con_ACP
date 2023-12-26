@@ -1,0 +1,1 @@
+{"emb_dim": 64, "n_hidden": 32, "n_RNN_layers": 3, "bidirectional": true, "model": "lstm"}
