@@ -3,12 +3,13 @@
 A deep learning model designed to screen anticancer peptides (ACPs) using peptide sequences only. A contrastive learning technique was applied to enhance model performance, yielding better results than a model trained solely on binary classification loss. Furthermore, two independent encoders were employed as a replacement for data augmentation, a technique commonly used in contrastive learning.
 
 ## Dependencies
-pytorch>=2.0.1
-numpy>=1.25.2
+- pytorch>=2.0.1
+- numpy>=1.25.2
+- biopython
 
 ## Datasets
-Datasets for model training was obtained from [ACPred-LAF](https://github.com/TearsWaiting/ACPred-LAF).
-There were six benchmark datasets were used for model training.
+Datasets for model training were obtained from [ACPred-LAF](https://github.com/TearsWaiting/ACPred-LAF).
+Six benchmark datasets were used for model training:
 - ACP-Mixed-80
 - ACP2.0 main
 - ACP2.0 alternative
@@ -16,43 +17,56 @@ There were six benchmark datasets were used for model training.
 - ACP500+ACP2710
 - LEE+Independent
 
-Detailed information can be found [here](https://academic.oup.com/bioinformatics/article/37/24/4684/6330613).
+For more detailed information, refer to this [research article](https://academic.oup.com/bioinformatics/article/37/24/4684/6330613).
 
 ## Model training
+Use the following command to start model training:
 ```
 python train.py --model_info {model_info} --batch_size {batch_size} --dropout_rate {dropout_rate}
                 --lr {learning_rate} --epoch {maximum_training_epochs} --dataset {bechmark_dataset}
                 --alpha {alpha} --beta {beta} --temp {temperature} --gpu {gpu_number}
 ```
-- <b>model_info</b>: Encoder architecture meta file is in `./model/model_params`. Among these encoder architectures, select one encoder architecture for model training. e.g. `--model_info ./model/model_params/cnn1.json`.
-- <b>batch_size</b>: Batch size for model training
-- <b>dropout_rate</b>: Dropout rate for model training
-- <b>learning_rate</b>: Learning rate for model training
-- <b>maximum_training_epochs</b>: Maximum epochs for model training
-- <b>benchmark_dataset</b>: Among six benchmark datasets, select one dataset for model training.
-  - <b>Options</b>: ACP_Mixed-80 for ACP-Mixed-80
-- <b>alpha</b>: Control the balance between cross-entropy and contrastive loss components. (0.0 ~ 1.0)
-- <b>beta</b>: Control the balance between two cross-entropy losses (cross-entropy loss 1 and 2)
-- <b>temperature</b>: Temperature parameter in contrastive loss
-- <b>gpu</b>: Number of GPU that will be used for model training. GPU number can be found by the command of `nvidia-smi`. For using CPU, provides `-1`.
+- <b>model_info</b>: Choose an encoder architecture from the `./model/model_params` directory for model training. For example, `--model_info ./model/model_params/cnn1.json`.
+- <b>batch_size</b>: Batch size used during model training
+- <b>dropout_rate</b>: Dropout rate applied during model training
+- <b>learning_rate</b>: Learning rate set for model training.
+- <b>maximum_training_epochs</b>: Maximum number of training epochs.
+- <b>benchmark_dataset</b>: Select one dataset from the six available benchmark datasets for model training.
+  - <b>Options</b>
+    - `ACP_Mixed-80`: ACP-Mixed-80 dataset
+    - `ACP2_main`: ACP2.0 main dataset
+    - `ACP2_alter`: ACP2.0 alternative dataset
+    - `ACP500_ACP164`: ACP500+ACP164 dataset
+    - `ACP500_ACP2710`: ACP500+ACP2710 dataset
+    - `LEE_Indep`: LEE+Independent dataset
+ 
+- <b>alpha</b>: Adjusts the balance between cross-entropy and contrastive loss components. Range: 0.0 to 1.0.
+- <b>beta</b>: Balances the two types of cross-entropy losses (cross-entropy loss 1 and 2).
+  - <b>Options</b>
+    - `0`: Only cross-entroly loss 1 is used for model training.
+    - `0.5`: Both cross-entropy loss 1 and 2 are used for model training.
+    - `1`: Only cross-entroly loss 2 is used for model training.
+- <b>temperature</b>: Temperature parameter in contrastive loss calculation.
+- <b>gpu</b>: GPU number to be used for model training, as identified by the `nvidia-smi`` command. Use `-1`` for CPU training.
 
 ## Inference (Predicting ACPs)
-For predicting ACPs from <u>peptide sequence only</u>, peptide sequence list should be prepared in fasta format. <br>Detailed information of fasta format is [here](https://en.wikipedia.org/wiki/FASTA_format).
+To predict Anticancer Peptides (ACPs) using only peptide sequences, prepare your peptide sequence list in the FASTA format. For more detailed information about the FASTA format, refer to [this link](https://en.wikipedia.org/wiki/FASTA_format).
 
+Use the following command to run the inference:
 
 ```
-python inf.py --batch_size {batch_size} --model_type {model_type} --device {device} --output {output_file}
+python inf.py --batch_size {batch_size} --model_type {model_type}
+              --device {device} --output {output_file}
 ```
-- <b>batch_size</b>: Batch size for model training
-- <b>model_type</b>: Optimize model types. There were six benchmark datasets for model training, six optimized models are offered for predicting ACPs. We recommended default option of ACP-Mixed-80.
+- <b>batch_size</b>: The batch size used during inference
+- <b>model_type</b>: Specifies the type of optimized model. There are six optimized models available for predicting ACPs, each trained on one of six benchmark datasets. The default recommended option is ACP-Mixed-80.
   - <b>Options</b>: ACP_Mixed_80, ACP2_main, ACP2_alter, ACP500_ACP164, ACP500_ACP2710, LEE_Indep
-- <b>device</b>: Device for predicting ACPs
+- <b>device</b>: The device used for predicting ACPs
   - <b>Options</b>: cpu, gpu
-- <b>output_file</b>: Output file for save prediction results
+- <b>output_file</b>: The file where prediction results will be saved.
 
-Due to the variability of maximum peptide sequence length in each benchmark dataset, maximum input peptide sequence length is restricted for each model type.
-
-|model_type|Maximum number of <br>amino acid residues|
+Note: Due to variability in the maximum peptide sequence length across each benchmark dataset, there are restrictions on the maximum input peptide sequence length for each model type.
+|Model Type|Maximum Number of Amino Acid Residues|
 |---|:---:|
 |ACP2_main|50|
 |ACP2_alter|50|
