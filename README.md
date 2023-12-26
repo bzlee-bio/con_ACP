@@ -60,9 +60,17 @@ python inf.py --batch_size {batch_size} --model_type {model_type}
 ```
 - <b>batch_size</b>: The batch size used during inference
 - <b>model_type</b>: Specifies the type of optimized model. There are six optimized models available for predicting ACPs, each trained on one of six benchmark datasets. The default recommended option is ACP-Mixed-80.
-  - <b>Options</b>: ACP_Mixed_80, ACP2_main, ACP2_alter, ACP500_ACP164, ACP500_ACP2710, LEE_Indep
+  - <b>Options</b>
+    - `ACP_Mixed_80`: The optimized model that was trained using the ACP-Mixed-80 benchmark dataset.
+    - `ACP2_main`: The optimized model that was trained using the ACP2.0 main benchmark dataset.
+    - `ACP2_alter`: The optimized model that was trained using the ACP2.0 alternative benchmark dataset.
+    - `ACP500_ACP164`: The optimized model that was trained using the ACP500+ACP164 benchmark dataset.
+    - `ACP500_ACP2710`: The optimized model that was trained using the ACP500+ACP2710 benchmark dataset.
+    - `LEE_Indep`: The optimized model that was trained using the LEE+Independent benchmark dataset.
 - <b>device</b>: The device used for predicting ACPs
-  - <b>Options</b>: cpu, gpu
+  - <b>Options</b>
+    - `cpu`
+    - `gpu`
 - <b>output_file</b>: The file where prediction results will be saved.
 
 Note: Due to variability in the maximum peptide sequence length across each benchmark dataset, there are restrictions on the maximum input peptide sequence length for each model type.
