@@ -111,3 +111,5 @@ python train.py --model_info {model_info} --batch_size {batch_size} --dropout_ra
 - <b>temperature</b>: Temperature parameter in contrastive loss calculation.
 - <b>gpu</b>: GPU number to be used for model training, as identified by the `nvidia-smi`` command. Use `-1`` for CPU training.
 
+## Reference
+Byungjo Lee, Dongkwan Shin, Contrastive learning for enhancing feature extraction in anticancer peptides, Briefings in Bioinformatics, Volume 25, Issue 3, May 2024, bbae220, https://doi.org/10.1093/bib/bbae220
