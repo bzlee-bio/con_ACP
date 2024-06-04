@@ -27,9 +27,10 @@ To predict ACPs using only peptide sequences, prepare your peptide sequence list
 Use the following command to run the inference:
 
 ```
-python inf.py --batch_size {batch_size} --model_type {model_type}
+python inf.py --input {input_file} --batch_size {batch_size} --model_type {model_type}
               --device {device} --output {output_file}
 ```
+- <b>input_file</b>: The input file contains peptide sequences in fasta format.
 - <b>batch_size</b>: The batch size used during inference
 - <b>model_type</b>: Specifies the type of optimized model. There are six optimized models available for predicting ACPs, each trained on one of six benchmark datasets. The default recommended option is ACP-Mixed-80.
   - <b>Options</b>
