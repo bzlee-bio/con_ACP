@@ -11,8 +11,10 @@ import copy
 
 args = arg_parser()
 model_id = f"./ckpt/{args.model_type}"
+batch_size_backup = args.batch_size
 with open(f"{model_id}_best.json", "rt") as f:
     args += json.load(f)
+args.batch_size = batch_size_backup
 
 if args.model_type == "ACP2_main":
     from model_old import load_model, head, model_tot, contrastive_model
