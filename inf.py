@@ -19,7 +19,7 @@ if args.model_type == "ACP2_main":
 else:
     from model import load_model, head, model_tot, contrastive_model
 
-args.device = torch.device("cpu") if args.device == "cpu" else torch.device("gpu")
+args.device = torch.device("cpu") if args.device == "cpu" else torch.device("cuda")
 args.original_AA_tok_len = copy.deepcopy(args.AA_tok_len)
 
 start_token = (
@@ -144,7 +144,7 @@ else:
     )
     args.model_id = 1
 
-
+classifier.to(args.device)
 classifier.eval()
 with torch.no_grad():
     for i, batch in enumerate(inference_loader):
